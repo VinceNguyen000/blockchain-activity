@@ -1,0 +1,9 @@
+Gas-aware airdrop design.
+
+Custom errors: We use Solidity custom errors (e.g., error ZeroAmount();) instead of require(..., "msg"). Custom errors encode a 4-byte selector + ABI-encoded args, avoiding long revert strings and cutting revert gas & bytecode size.
+
+calldata params: Recipient arrays/amounts are passed as address[] calldata / uint256[] calldata, so the EVM reads directly from call data without copying into memory—saving both memory expansion and runtime gas.
+
+unchecked loops: The index increment (++i) is wrapped in unchecked {} after we’ve bounded i < len, removing redundant overflow checks introduced by Solidity’s safe math and shaving gas per iteration.
+
+Single-tx amortization: We batch N transfers in one transaction, paying base costs (overhead, access list/warm-up, nonce bump, inclusion) once and amortizing them across all recipients; this is materially cheaper than N separate txs.
