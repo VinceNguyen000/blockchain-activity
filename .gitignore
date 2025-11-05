@@ -1,0 +1,6 @@
+# Solo Proof-of-Build Badge (Hardhat/Node)
+Solo Proof-of-Build Badge/node_modules/
+Solo Proof-of-Build Badge/artifacts/
+Solo Proof-of-Build Badge/cache/
+Solo Proof-of-Build Badge/.env
+Solo Proof-of-Build Badge/*.log
